@@ -115,12 +115,12 @@ def setupSerial(config, baud_rate=57600, time_out=0.1):
     while ser is None and tries < 10:
         try:
             port = config['port']
-            ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)  # use non blocking serial.
+            ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=time_out)  # use non blocking serial.
         except (IOError, OSError, serial.SerialException) as e:
             error1 = '{0}.\n({1})'.format(port, str(e))
             try:
                 port = config['altport']
-                ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)  # use non blocking serial.
+                ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=time_out)  # use non blocking serial.
 
             except (IOError, OSError, serial.SerialException) as e:
                 error2 = '{0}.\n({1})'.format(port, str(e))
